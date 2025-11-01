@@ -36,11 +36,14 @@
   nav a:hover {
     text-decoration: underline;
   }
+  /* Banner with fixed size of 900px width and 90px height, centered */
   .banner {
+    width: 900px;
+    height: 90px;
+    margin: 0 auto;
     background-image: url('https://images.unsplash.com/photo-1516483635555-67f4bcd5b249?ixlib=rb-4.0.0&auto=format&fit=crop&w=1470&q=80'); /* Placeholder - replace with Hollow Knight inspired art */
     background-size: cover;
     background-position: center;
-    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,11 +53,11 @@
     background-color: rgba(13, 13, 13, 0.6);
     padding: 10px 20px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 24px;
+    font-size: 14px; /* Smaller due to banner size */
+    margin: 0;
   }
   .intro {
     padding: 20px;
-    text-align: center;
   }
   .section {
     padding: 20px;
@@ -63,15 +66,29 @@
     color: #00bcd4;
     margin-bottom: 10px;
   }
-  .gallery {
+  /* Gallery and shop images styled as game cards, half size, clickable */
+  .gallery, .shop {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 15px;
   }
-  .gallery img {
-    width: 100%;
+  .card-img {
+    width: 50%; /* Half size of original */
+    cursor: pointer;
     border: 2px solid #00bcd4;
     border-radius: 8px;
+    transition: transform 0.2s, border-color 0.2s;
+    display: block;
+    margin: 0 auto;
+  }
+  .card-img:hover {
+    transform: scale(1.05);
+    border-color: #ffffff;
+  }
+  /* Center images inside links for shop */
+  .shop a {
+    display: flex;
+    justify-content: center;
   }
   footer {
     background-color: #222;
@@ -89,7 +106,7 @@
 <body>
 
 <header>
-  <h1>Welcome to my Hollow Knight-inspired Portfolio & Shop</h1>
+  <h1>Greetings, friends! Welcome to my Hollow Knight-inspired Portfolio & Shop</h1>
   <nav>
     <a href="#portfolio">Portfolio</a>
     <a href="#shop">Shop</a>
@@ -97,33 +114,12 @@
     <a href="#contact">Contact</a>
   </nav>
 </header>
-<!-- Banner with fixed width of 900px and height of 90px, centered -->
+
+<!-- Banner with fixed size -->
 <div class="banner">
   <h2>Your Gateway to Animation Art & Creations</h2>
 </div>
-<style>
-  /* Banner with fixed size and centered */
-  .banner {
-    width: 900px;
-    height: 90px;
-    margin: 0 auto; /* centers the banner horizontally */
-    background-image: url('https://images.unsplash.com/photo-1516483635555-67f4bcd5b249?ixlib=rb-4.0.0&auto=format&fit=crop&w=1470&q=80'); /* placeholder for Hollow Knight inspired art */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .banner h2 {
-    color: #ffffff;
-    background-color: rgba(13, 13, 13, 0.6);
-    padding: 10px 20px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 14px; /* adjusted for size */
-    margin: 0;
-  }
-</style>
-  
+
 <div class="intro section">
   <p>Hi there! I'm passionate about animation, art, and everything Hollow Knight. Explore my work and shop my latest animation art products, featuring affiliate links to my favorite items on Amazon.</p>
 </div>
@@ -131,23 +127,25 @@
 <div id="portfolio" class="section">
   <h3>My Work</h3>
   <div class="gallery">
-    <!-- Example artwork -->
-    <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?ixlib=rb-4.0.0&auto=format&fit=crop&w=800&q=80" alt="Artwork 1" />
-    <img src="https://images.unsplash.com/photo-1572371921672-6c835d7d4c9f?ixlib=rb-4.0.0&auto=format&fit=crop&w=800&q=80" alt="Artwork 2" />
-    <!-- Add more artwork here -->
+    <!-- Example artwork images -->
+    <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?ixlib=rb-4.0.0&auto=format&fit=crop&w=800&q=80" alt="Artwork 1" class="card-img" />
+    <img src="https://images.unsplash.com/photo-1572371921672-6c835d7d4c9f?ixlib=rb-4.0.0&auto=format&fit=crop&w=800&q=80" alt="Artwork 2" class="card-img" />
+    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.0&auto=format&fit=crop&w=800&q=80" alt="Artwork 3" class="card-img" />
   </div>
 </div>
 
 <div id="shop" class="section">
   <h3>Shop My Animation Art Products</h3>
-  <!-- Placeholder images for affiliate products -->
+  <!-- Placeholder images with affiliate links -->
   <a class="affiliate-link" href="https://www.amazon.com/dp/PRODUCT_ID" target="_blank">
-    <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?ixlib=rb-4.0.0&auto=format&fit=crop&w=400&q=80" alt="Animation Product 1" />
+    <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?ixlib=rb-4.0.0&auto=format&fit=crop&w=400&q=80" alt="Animation Product 1" class="card-img" />
   </a>
   <a class="affiliate-link" href="https://www.amazon.com/dp/PRODUCT_ID" target="_blank">
-    <img src="https://images.unsplash.com/photo-1572371921672-6c835d7d4c9f?ixlib=rb-4.0.0&auto=format&fit=crop&w=400&q=80" alt="Animation Product 2" />
+    <img src="https://images.unsplash.com/photo-1572371921672-6c835d7d4c9f?ixlib=rb-4.0.0&auto=format&fit=crop&w=400&q=80" alt="Animation Product 2" class="card-img" />
   </a>
-  <!-- Add more products as needed -->
+  <a class="affiliate-link" href="https://www.amazon.com/dp/PRODUCT_ID" target="_blank">
+    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.0&auto=format&fit=crop&w=400&q=80" alt="Animation Product 3" class="card-img" />
+  </a>
 </div>
 
 <div id="about" class="section">
@@ -161,7 +159,7 @@
 </div>
 
 <footer>
-  <p>&copy; 2025-2026 Your Name. All rights reserved.</p>
+  <p>&copy; 2024 Your Name. All rights reserved.</p>
   <p>Disclaimer: Affiliate links support my work at no extra cost to you.</p>
 </footer>
 
