@@ -7,7 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
-  body {
+  /* === Global Base === */
+body {
   margin: 0;
   font-family: 'Press Start 2P', cursive;
   background: linear-gradient(135deg, #4b6cb7 0%, #6495ED 50%, #b3cde0 100%);
@@ -15,7 +16,10 @@
   overflow-x: hidden;
   scroll-behavior: smooth;
   background-attachment: fixed;
- .background-overlay {
+}
+
+/* Subtle blur overlay for dreamy atmosphere */
+.background-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -26,236 +30,252 @@
   pointer-events: none;
   z-index: 0;
 }
-  }
 
-  /* === Slimline Banner === */
-  .slim-banner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(30, 60, 114, 0.6);
-    backdrop-filter: blur(6px);
-    color: #a0cfff;
-    font-size: 9px;
-    z-index: 2000;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.4);
-  }
+/* === Slimline Banner === */
+.slim-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(100,149,237,0.6); /* Cornflower tint */
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 9px;
+  z-index: 2000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
 
-  /* === Hero Banner === */
-  .hero-banner {
-    background: linear-gradient(135deg, rgba(30,60,114,0.8), rgba(42,82,152,0.8));
-    backdrop-filter: blur(8px);
-    padding: 70px 20px 50px;
-    text-align: center;
-    color: #fff;
-    margin-top: 35px; /* offset for slim banner */
-  }
+/* === Hero Banner === */
+.hero-banner {
+  background: linear-gradient(135deg, rgba(75,108,183,0.8), rgba(100,149,237,0.8));
+  backdrop-filter: blur(8px);
+  padding: 70px 20px 50px;
+  text-align: center;
+  color: #fff;
+  margin-top: 35px; /* offset for slim banner */
+}
 
-  .hero-banner h1 { font-size: 1.5em; margin: 0; }
-  .hero-banner p { font-size: 10px; margin-top: 10px; }
+.hero-banner h1 { font-size: 1.5em; margin: 0; }
+.hero-banner p { font-size: 10px; margin-top: 10px; }
 
-  /* === Navigation === */
-  .top-nav {
-    display: flex;
-    justify-content: center;
-    background: rgba(30, 60, 114, 0.6);
-    backdrop-filter: blur(8px);
-    padding: 10px;
-    position: sticky;
-    top: 35px;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  .top-nav a {
-    margin: 0 10px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 10px;
-    transition: 0.3s;
-  }
-  .top-nav a:hover { color: #a0cfff; }
+/* === Navigation === */
+.top-nav {
+  display: flex;
+  justify-content: center;
+  background: rgba(75,108,183,0.6);
+  backdrop-filter: blur(8px);
+  padding: 10px;
+  position: sticky;
+  top: 35px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.top-nav a {
+  margin: 0 10px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 10px;
+  transition: 0.3s;
+}
+.top-nav a:hover { color: #dbe8ff; }
 
-  /* === Sections === */
-  .section {
-    padding: 60px 20px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
+/* === Sections === */
+.section {
+  padding: 60px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  z-index: 1;
+}
 
-  /* === Section Header & Avatar === */
-  .section-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    position: relative;
-  }
+/* === Section Header & Avatar === */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
 
-  .section-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    margin-bottom: 10px;
-    object-fit: cover;
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-    transition: all 1s ease;
-  }
+.section-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  margin-bottom: 10px;
+  object-fit: cover;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: all 1s ease;
+}
 
-  /* Float + Blink Animation when visible */
-  .section-avatar.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    animation: floaty 4s ease-in-out infinite alternate, blink 8s infinite steps(1);
-  }
+.section-avatar.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: floaty 4s ease-in-out infinite alternate, blink 8s infinite steps(1);
+}
 
-  @keyframes floaty {
-    from { transform: translateY(0) scale(1); }
-    to { transform: translateY(-6px) scale(1.02); }
-  }
+@keyframes floaty {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(-6px) scale(1.02); }
+}
+@keyframes blink {
+  0%, 90%, 100% { filter: brightness(1); }
+  91%, 92% { filter: brightness(0.5); }
+  93%, 94% { filter: brightness(1.4); }
+}
 
-  @keyframes blink {
-    0%, 90%, 100% { filter: brightness(1); }
-    91%, 92% { filter: brightness(0.4); }
-    93%, 94% { filter: brightness(1.4); }
-  }
+/* === Dialogue Bubble === */
+.dialogue-bubble {
+  position: absolute;
+  top: -10px;
+  left: 110%;
+  width: 160px;
+  background: rgba(100,149,237,0.8);
+  backdrop-filter: blur(6px);
+  border: 2px solid #fff;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 9px;
+  padding: 8px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.8s ease;
+  pointer-events: none;
+  white-space: pre-line;
+}
 
-  /* === Dialogue Bubble === */
-  .dialogue-bubble {
-    position: absolute;
-    top: -10px;
-    left: 110%;
-    width: 160px;
-    background: rgba(30,60,114,0.8);
-    backdrop-filter: blur(6px);
-    border: 2px solid #fff;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 9px;
-    padding: 8px;
-    text-align: left;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.8s ease;
-    pointer-events: none;
-  }
-  .dialogue-bubble.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .dialogue-bubble::after {
-    content: '';
-    position: absolute;
-    left: -8px;
-    top: 15px;
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent rgba(30,60,114,0.8) transparent transparent;
-  }
+.dialogue-bubble.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  /* === Tabs for Supplies === */
-  .tab-buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .tab-buttons button {
-    background: rgba(30, 60, 114, 0.6);
-    backdrop-filter: blur(4px);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 10px;
-    transition: 0.3s;
-  }
-  .tab-buttons button.active {
-    background: rgba(42, 82, 152, 0.8);
-  }
+/* Tail */
+.dialogue-bubble::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 15px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent rgba(100,149,237,0.8) transparent transparent;
+}
 
-  .tab-content { display: none; }
-  .tab-content.active {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+/* Blinking cursor for typewriter */
+.dialogue-bubble.typing::after {
+  content: "▋";
+  position: static;
+  animation: blinkCursor 1s steps(2, start) infinite;
+}
+@keyframes blinkCursor { to { opacity: 0; } }
 
-  /* === Product Cards === */
-  .product-card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(6px);
-    border-radius: 8px;
-    width: 220px;
-    margin: 10px;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.4);
-    transition: transform 0.2s;
-  }
-  .product-card:hover { transform: scale(1.03); }
-  .product-card img {
-    width: 100%;
-    border-radius: 5px;
-  }
-  .product-card a {
-    color: #a0cfff;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 8px;
-  }
+/* === Tabs for Supplies === */
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.tab-buttons button {
+  background: rgba(75,108,183,0.6);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 10px;
+  transition: 0.3s;
+}
+.tab-buttons button.active {
+  background: rgba(100,149,237,0.8);
+}
 
-  /* === Music Vault === */
-  .music-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
-    justify-items: center;
-  }
-  .music-card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(6px);
-    padding: 15px;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 300px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  }
+.tab-content { display: none; }
+.tab-content.active {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-  .cta-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, #2a5298, #1e3c72);
-    color: #fff;
-    padding: 10px 16px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 10px;
-    margin-top: 15px;
-    transition: 0.3s;
-  }
-  .cta-btn:hover {
-    transform: scale(1.05);
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-  }
+/* === Product Cards === */
+.product-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  width: 220px;
+  margin: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+.product-card:hover { transform: scale(1.03); }
+.product-card img {
+  width: 100%;
+  border-radius: 5px;
+}
+.product-card a {
+  color: #dbe8ff;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 8px;
+}
 
-  footer {
-    text-align: center;
-    padding: 20px;
-    background: rgba(10,20,34,0.9);
-    backdrop-filter: blur(6px);
-    font-size: 10px;
-  }
+/* === Music Vault === */
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  justify-items: center;
+}
+.music-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* === Buttons === */
+.cta-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #6495ED, #4b6cb7);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 10px;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+.cta-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #4b6cb7, #6495ED);
+}
+
+/* === Footer === */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(75,108,183,0.7);
+  backdrop-filter: blur(6px);
+  font-size: 10px;
+  color: #fff;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
 </style>
 </head>
 
