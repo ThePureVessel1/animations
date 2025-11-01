@@ -8,7 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 <style>
   body {
-    margin: 0;
+     margin: 0;
+    padding-top: 40px; /* space for fixed header banner */
     font-family: 'Arial', sans-serif;
     background-color: #0d0d0d;
     color: #ffffff;
@@ -47,14 +48,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  
+   }
+  /* Slim header banner styling */
+  .header-banner {
+    width: 100%;
+    height: 40px;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 4px solid #00bcd4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
   }
-  .banner h2 {
+  .header-banner h2 {
     color: #ffffff;
-    background-color: rgba(13, 13, 13, 0.6);
-    padding: 10px 20px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 14px; /* Smaller due to banner size */
+    font-size: 10px;
     margin: 0;
+    padding: 0 10px;
+    text-align: center;
+  
   }
   .intro {
     padding: 20px;
