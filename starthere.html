@@ -77,14 +77,16 @@
     border-bottom: 1px solid rgba(255,255,255,0.1);
   }
 
-  /* === Section Avatar === */
+  /* === Section Header & Avatar === */
   .section-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+    position: relative;
   }
+
   .section-avatar {
     width: 80px;
     height: 80px;
@@ -92,11 +94,60 @@
     border: 3px solid #fff;
     margin-bottom: 10px;
     object-fit: cover;
-    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    transition: all 1s ease;
   }
-  .section-avatar:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
+
+  /* Float + Blink Animation when visible */
+  .section-avatar.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: floaty 4s ease-in-out infinite alternate, blink 8s infinite steps(1);
+  }
+
+  @keyframes floaty {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-6px) scale(1.02); }
+  }
+
+  @keyframes blink {
+    0%, 90%, 100% { filter: brightness(1); }
+    91%, 92% { filter: brightness(0.4); }
+    93%, 94% { filter: brightness(1.4); }
+  }
+
+  /* === Dialogue Bubble === */
+  .dialogue-bubble {
+    position: absolute;
+    top: -10px;
+    left: 110%;
+    width: 160px;
+    background: rgba(30,60,114,0.8);
+    backdrop-filter: blur(6px);
+    border: 2px solid #fff;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 9px;
+    padding: 8px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.8s ease;
+    pointer-events: none;
+  }
+  .dialogue-bubble.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .dialogue-bubble::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 15px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent rgba(30,60,114,0.8) transparent transparent;
   }
 
   /* === Tabs for Supplies === */
@@ -221,6 +272,7 @@
 <section id="commissions" class="section">
   <div class="section-header">
     <img src="avatar_commission.png" alt="Commission Avatar" class="section-avatar">
+    <div class="dialogue-bubble">“Need a story brought to life? I can animate your dream.”</div>
     <h2>🎬 Commission an Animation</h2>
   </div>
   <p>Bring your world to life through bespoke animation and storyboarding.</p>
@@ -231,6 +283,7 @@
 <section id="supplies" class="section">
   <div class="section-header">
     <img src="avatar_supplies.png" alt="Supplies Avatar" class="section-avatar">
+    <div class="dialogue-bubble">“Grab your gear, creator. Let’s make some magic.”</div>
     <h2>🛠️ Creative Supply Hub</h2>
   </div>
   <p>Choose your realm — all links support the artist through affiliate partnerships.</p>
@@ -241,7 +294,6 @@
     <button data-tab="gamers">For Gamers</button>
   </div>
 
-  <!-- Artists -->
   <div id="artists" class="tab-content active">
     <div class="product-card">
       <img src="https://m.media-amazon.com/images/I/61V3w3gR5HL._AC_SL1500_.jpg" alt="Drawing Tablet">
@@ -255,7 +307,6 @@
     </div>
   </div>
 
-  <!-- YouTubers -->
   <div id="youtubers" class="tab-content">
     <div class="product-card">
       <img src="https://m.media-amazon.com/images/I/71x60zUJg-L._AC_SL1500_.jpg" alt="Mic">
@@ -269,7 +320,6 @@
     </div>
   </div>
 
-  <!-- Gamers -->
   <div id="gamers" class="tab-content">
     <div class="product-card">
       <img src="https://m.media-amazon.com/images/I/71lVwl3O4ML._AC_SL1500_.jpg" alt="Gaming Mouse">
@@ -288,6 +338,7 @@
 <section id="music" class="section">
   <div class="section-header">
     <img src="avatar_music.png" alt="Music Avatar" class="section-avatar">
+    <div class="dialogue-bubble">“Need beats for your next stream? I’ve got you.”</div>
     <h2>🎧 Indie Instrumental Vault</h2>
   </div>
   <p>Royalty-free instrumentals for gamers, animators, and storytellers.</p>
@@ -310,6 +361,7 @@
 <section id="social" class="section">
   <div class="section-header">
     <img src="avatar_social.png" alt="Social Avatar" class="section-avatar">
+    <div class="dialogue-bubble">“Join the creative guild — we’re stronger together.”</div>
     <h2>🌐 Connect</h2>
   </div>
   <p>Follow the journey and join the creative community.</p>
@@ -320,10 +372,9 @@
 <footer>&copy; 2025 The Pure Vessel | Animator’s Paradise</footer>
 
 <script>
-  // === Tabs Script ===
+  /* === Tabs Script === */
   const tabButtons = document.querySelectorAll(".tab-buttons button");
   const tabs = document.querySelectorAll(".tab-content");
-
   tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       tabButtons.forEach(b => b.classList.remove("active"));
@@ -332,7 +383,24 @@
       document.getElementById(btn.dataset.tab).classList.add("active");
     });
   });
+
+  /* === Avatar + Dialogue Animation on Scroll === */
+  const avatars = document.querySelectorAll('.section-avatar');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const avatar = entry.target;
+      const bubble = avatar.nextElementSibling;
+      if (entry.isIntersecting) {
+        avatar.classList.add('visible');
+        setTimeout(() => bubble.classList.add('visible'), 800);
+        setTimeout(() => bubble.classList.remove('visible'), 7000);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  avatars.forEach(avatar => observer.observe(avatar));
 </script>
 
 </body>
 </html>
+
